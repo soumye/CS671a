@@ -1,0 +1,17 @@
+# Q1a
+I noted that any quotation starts with a white space or start of sentence and ends with a white space and end of sentence. I used re.sub to substitute first all the occurances of ' ' such that ' doesn't occur in between so that the shortest ones are matched or the inner most in a nested '' are matched. Then I used this again to match the second outer '' in case of nested.
+Then finally I used *? to do greedy matching. 
+Then I had to manually hardcode some things to exclude as there was no general way to exclude those using regex.
+
+# Q1b
+I find a sentence terminator in two stages. 
+First if it's '.'. In this case I assume that it'll definitely be a terminator except for the mr. dr. case. So I replace appropriately.
+Second, if it's either of ?,! then I ignore " ' " and then see if the immediately next character is a capital letter.
+Finally I remove the rogue tags in start and end.
+
+# Q2
+I make 2 regex objects. One to find punctuations that are sentence terminators in the formatted text and one to find punctuations that are not.
+I take the immediate left 5 and immediate right 5 characters in conjuction with the puctuation itself as the context window and then bin them to form a BOW feature vector for each occurance of the punctuation(separtely for true and false case)
+Then I club them to form the complete dataset. 
+I then take a 80:20 split of train:test to train the model on logistic and SVM and report the accuracy.
+The accuracy is around 98-99% for both.

@@ -1,0 +1,2 @@
+Logistic Regression:  0.987738419619
+Support Vector Machine:  0.982288828338
