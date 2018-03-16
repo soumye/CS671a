@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import _pickle as pkl
 import sklearn
+from sklearn.linear_model import LogisticRegression
 import numpy as np
 import nltk
 from parser import parser
@@ -41,17 +42,28 @@ for key, value in train.items():
         train_set.append([key, avg ])
 
 random.shuffle(train_set)
+Y_train = np.array([row[0] for row in train_set])
+X_train = np.array([row[1] for row in train_set])
 
 test_set = []
-for key, value in train.items():
+for key, value in test.items():
     for file_id, words in value.items():
         #The size of word vectors
         avg = np.zeros(50)
+        num = len(words)
         for i in range(len(words)):
-            avg += vec[train[key][file_id][i]]
-        avg = avg/len(words)
+            try:
+                avg += vec[test[key][file_id][i]]
+            except:
+                num -= 1
+        avg = avg/num
         test_set.append([key, avg ])
 
 random.shuffle(test_set)
+Y_test = np.array([row[0] for row in test_set])
+X_test = np.array([row[1] for row in test_set])
 
-
+# logistic_regression_model = LogisticRegression(penalty='l2', C=0.01)
+logistic_regression_model = LogisticRegression()
+logistic_regression_model.fit(X_train, Y_train)
+accuracy_score = logistic_regression_model.score(X_test, Y_test)
