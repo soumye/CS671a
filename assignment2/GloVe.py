@@ -2,7 +2,11 @@
 import _pickle as pkl
 import numpy as np
 import random
+from classifiers import naive_bayes
 from classifiers import logistic_regression
+from classifiers import svm
+from classifiers import fnn
+from classifiers import rnn
 
 def loadGloveVectors():
     print ("Loading Glove Model")
@@ -59,4 +63,8 @@ random.shuffle(test_set)
 Y_test = np.array([row[0] for row in test_set])
 X_test = np.array([row[1] for row in test_set])
 
-print(logistic_regression(X_train, Y_train, X_test, Y_test))
+print("Accuracy for Naive Bayes is : ", naive_bayes(X_train, Y_train, X_test, Y_test))
+print("Accuracy for Logistic Regression is : ", logistic_regression(X_train, Y_train, X_test, Y_test))
+print("Accuracy for SVM is : ", svm(X_train, Y_train, X_test, Y_test))
+print("Accuracy for FF Neural Net is : ", fnn(X_train, Y_train, X_test, Y_test))
+# print("Accuracy for Recurrent Neural Net is : ", rnn(X_train, Y_train, X_test, Y_test))
