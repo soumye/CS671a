@@ -1,11 +1,8 @@
 #!/usr/bin/python3
 import _pickle as pkl
-import sklearn
-from sklearn.linear_model import LogisticRegression
 import numpy as np
-import nltk
-from parser import parser
 import random
+from classifiers import logistic_regression
 
 def loadGloveVectors():
     print ("Loading Glove Model")
@@ -21,8 +18,7 @@ def loadGloveVectors():
     return model
 
 vec = loadGloveVectors()
-# print(['hello'])
-# print(type(vec['hello']))
+
 pkl_file = open('data.pkl', 'rb')
 [train , test] = pkl.load(pkl_file)
 pkl_file.close()
@@ -63,7 +59,4 @@ random.shuffle(test_set)
 Y_test = np.array([row[0] for row in test_set])
 X_test = np.array([row[1] for row in test_set])
 
-# logistic_regression_model = LogisticRegression(penalty='l2', C=0.01)
-logistic_regression_model = LogisticRegression()
-logistic_regression_model.fit(X_train, Y_train)
-accuracy_score = logistic_regression_model.score(X_test, Y_test)
+print(logistic_regression(X_train, Y_train, X_test, Y_test))
