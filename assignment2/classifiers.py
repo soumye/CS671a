@@ -30,6 +30,5 @@ def fnn(X_train, Y_train, X_test, Y_test):
     accuracy_score = fnn_model.score(X_test, Y_test)
     return accuracy_score
 
-
 def rnn(X_train, Y_train, X_test, Y_test):
     pass
