@@ -23,7 +23,7 @@ model.add(Embedding(top_words, embedding_vecor_length, input_length=max_review_l
 model.add(Dropout(0.2))
 model.add(LSTM(100))
 model.add(Dropout(0.2))
-model.add(Dense(1, activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 print(model.summary())
 model.fit(X_train, y_train, epochs=3, batch_size=64)
