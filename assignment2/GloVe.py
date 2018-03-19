@@ -6,7 +6,6 @@ from classifiers import naive_bayes
 from classifiers import logistic_regression
 from classifiers import svm
 from classifiers import fnn
-from classifiers import rnn
 
 def loadGloveVectors():
     print ("Loading Glove Model")

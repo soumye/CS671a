@@ -6,7 +6,6 @@ from classifiers import naive_bayes
 from classifiers import logistic_regression
 from classifiers import svm
 from classifiers import fnn
-from classifiers import rnn
 import gensim
 
 vec = gensim.models.KeyedVectors.load_word2vec_format('~/NLP/GoogleNews-vectors-negative300.bin', binary=True) 
