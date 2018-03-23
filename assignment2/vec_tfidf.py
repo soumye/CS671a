@@ -13,23 +13,26 @@ pkl_file = open('data2.pkl', 'rb')
 [train , test] = pkl.load(pkl_file)
 pkl_file.close()
 
-# def loadGloveVectors():
-#     print ("Loading Glove Model")
-#     #Write the directory for glove vectors here
-#     f = open("/home/soumye/NLP/CS224N/assignment1/utils/datasets/glove.6B.300d.txt",'r')
-#     model = {}
-#     for line in f:
-#         splitLine = line.split()
-#         word = splitLine[0]
-#         embedding = np.array([float(val) for val in splitLine[1:]])
-#         model[word] = embedding
-#     print ("Done.",len(model)," words loaded!")
-#     return model
+#1 for glove and 0 for word2vec
+vec_type = 1
 
-# vec = loadGloveVectors()
+def loadGloveVectors():
+    print ("Loading Glove Model")
+    #Write the directory for glove vectors here
+    f = open("/home/soumye/NLP/CS224N/assignment1/utils/datasets/glove.6B.300d.txt",'r')
+    model = {}
+    for line in f:
+        splitLine = line.split()
+        word = splitLine[0]
+        embedding = np.array([float(val) for val in splitLine[1:]])
+        model[word] = embedding
+    print ("Done.",len(model)," words loaded!")
+    return model
 
-vec = gensim.models.KeyedVectors.load_word2vec_format('~/NLP/GoogleNews-vectors-negative300.bin', binary=True) 
-
+if vec_type == 1:
+    vec = loadGloveVectors()
+else:
+    vec = gensim.models.KeyedVectors.load_word2vec_format('~/NLP/GoogleNews-vectors-negative300.bin', binary=True) 
 
 vocab = {}
 for key, value in train.items():

@@ -23,8 +23,10 @@ Accuracy for SVM is :  0.85664
 Accuracy for FF Neural Net is :  0.8602
 
 ## Word2vec with Tfidf
-
-
+Accuracy for Naive Bayes is :  0.50896
+Accuracy for Logistic Regression is :  0.827
+Accuracy for SVM is :  0.83152
+Accuracy for FF Neural Net is :  0.79808
 ## Glove 300d
 Accuracy for Naive Bayes is :  0.693
 Accuracy for Logistic Regression is :  0.83556
