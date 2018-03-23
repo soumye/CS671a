@@ -10,7 +10,7 @@ from classifiers import fnn
 def loadGloveVectors():
     print ("Loading Glove Model")
     #Write the directory for glove vectors here
-    f = open("/home/soumye/NLP/CS224N/assignment1/utils/datasets/glove.6B.50d.txt",'r')
+    f = open("/home/soumye/NLP/CS224N/assignment1/utils/datasets/glove.6B.300d.txt",'r')
     model = {}
     for line in f:
         splitLine = line.split()
@@ -30,7 +30,7 @@ train_set = []
 for key, value in train.items():
     for file_id, words in value.items():
         #The size of word vectors
-        avg = np.zeros(50)
+        avg = np.zeros(300)
         num = len(words)
         for i in range(len(words)):
             try:
@@ -48,7 +48,7 @@ test_set = []
 for key, value in test.items():
     for file_id, words in value.items():
         #The size of word vectors
-        avg = np.zeros(50)
+        avg = np.zeros(300)
         num = len(words)
         for i in range(len(words)):
             try:

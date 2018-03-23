@@ -1,0 +1,17 @@
+##Binary BOW for vocab = 5001
+Accuracy for Naive Bayes is :  0.77976
+Accuracy for Logistic Regression is :  0.85984
+Accuracy for SVM is :  0.8324
+Accuracy for FF Neural Net is :  0.85576
+
+#####Glove 300d
+Accuracy for Naive Bayes is :  0.693
+Accuracy for Logistic Regression is :  0.83556
+Accuracy for SVM is :  0.83624
+Accuracy for FF Neural Net is :  0.83884
+
+##Word2vec
+Accuracy for Naive Bayes is :  0.72696
+Accuracy for Logistic Regression is :  0.8464
+Accuracy for SVM is :  0.85664
+Accuracy for FF Neural Net is :  0.8602

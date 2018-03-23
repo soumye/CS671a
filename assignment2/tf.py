@@ -30,7 +30,7 @@ for key, value in test.items():
                 vocab[word] = 1           
 
 v = collections.Counter(vocab)
-vocab = dict(v.most_common(5000))
+vocab = dict(v.most_common(10000))
 print(len(vocab))
 num = 0
 for key, value in vocab.items():
