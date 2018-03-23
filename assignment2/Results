@@ -1,3 +1,26 @@
+Name - Soumye Singhal
+Roll No - 150728
+
+Explanation of the Approaches.
+1. In the preprocessing step I have done stop word removal of common english stop words(not for glove and word2vec) , '</br' tags and other junk tags.
+2. I have done lemmetizing and stemming for tfidf/bow in the parsing step.
+3. I made a dictionary out of the whole dataset and manually calculated the dictionary. The size of the dictionary was huge ie 160k so I restricted it 10k. I also added an "<unk/>" token.
+4. I manually made bow/tf and tfidf Representations and made the test and train set. For the tfidf the class of documents is taken as the whole train/test set.
+5. Glove vectors are imported in a dictionary format and word2vec using gensims module. Classification for this was done on the whole parsed dataset and wasn't just restricted to the vocabulary. Sometimes some words were not in them so I just skipped them.
+6. For tf-idf normalized vectors, I resptricted the words only to the dictionary. 
+7. For Classification I used the sklearn library directly for NaiveBayes/SVM/Logistic and FNN(without dropout.)
+8. The Rnn Classification is written in keras in which I found it better to use my own trained word vectors as the dataset is sufficinet instead of using glove or word2vec. Using bow/tfidf/tf seemed unefficient and computationally futile. It is a simple LSTM with top words = 5000, sigmoid units and cross_entropy loss function optimized with adam. I tried with and without dropout.
+
+Observations :
+1.I tried changing the vocabulary length to a greater length also but that didn't improve the Accuracy by much. The dictionary used in the dataset itself was of 80k sparse form which gave almost equivalent Accuracy on tf/tfidf and bow. For tfidf normalized wordvec/glove it would give much better accuracy than I achieved with a restricted vocabulary of only 10k.
+2. Not using dropout in LSTM resulted in overfitting. The train accuary was 92% and test was around 67%. Using droput helped generalize better and test accuary jumped up to a respectable 86%.
+3. I used a pre-written code using gensims to train document vectors which gave very bad accuracy of around 60% only. I guess they required a much more training time. 
+
+BEST Approaches.
+1. Almost all best Approaches were obtained using FNN(except vec with tfidf). This shows that a NN outperforms other classifiers. This is justifiable also since the decision boundary may be non-linear where only NN helps.
+2. TfIdf Using SVM also gave astoundingly high results. Having a large margin may have helped.
+3. Finally LSTM with significant training and droupout also gave very good results. LSTM are a far superior model which model a sequence well and the context is welll represented which helps in classification.
+
 ## Binary BOW for vocab = 5001
 Accuracy for Naive Bayes is :  0.77976
 Accuracy for Logistic Regression is :  0.85984
@@ -27,6 +50,7 @@ Accuracy for Naive Bayes is :  0.50896
 Accuracy for Logistic Regression is :  0.827
 Accuracy for SVM is :  0.83152
 Accuracy for FF Neural Net is :  0.79808
+
 ## Glove 300d
 Accuracy for Naive Bayes is :  0.693
 Accuracy for Logistic Regression is :  0.83556
@@ -45,7 +69,7 @@ Accuracy for Logistic Regression is :  0.8464
 Accuracy for SVM is :  0.85664
 Accuracy for FF Neural Net is :  0.8602
 
-## Using Rnn and self-trained word vectors with dropout
+## Using LSTM and self-trained word vectors with dropout
 25000/25000 [==============================] - 218s 9ms/step - loss: 0.4866 - acc: 0.7620
 Epoch 2/3
 25000/25000 [==============================] - 198s 8ms/step - loss: 0.3167 - acc: 0.8733
