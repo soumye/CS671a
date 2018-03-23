@@ -10,13 +10,32 @@ Accuracy for Logistic Regression is :  0.76704
 Accuracy for SVM is :  0.83408
 Accuracy for FF Neural Net is :  0.83924
 
-## Tf-Idf Representation
+## Tf-Idf Representation (Vocab = 10001)
+Accuracy for Naive Bayes is :  0.74576
+Accuracy for Logistic Regression is :  0.86404
+Accuracy for SVM is :  0.87888
+Accuracy for FF Neural Net is :  0.83256
+
+## Word2vec
+Accuracy for Naive Bayes is :  0.72696
+Accuracy for Logistic Regression is :  0.8464
+Accuracy for SVM is :  0.85664
+Accuracy for FF Neural Net is :  0.8602
+
+## Word2vec with Tfidf
+
 
 ## Glove 300d
 Accuracy for Naive Bayes is :  0.693
 Accuracy for Logistic Regression is :  0.83556
 Accuracy for SVM is :  0.83624
 Accuracy for FF Neural Net is :  0.83884
+
+## Glove with TfIdf restricted to top 5000 words
+Accuracy for Naive Bayes is :  0.5006
+Accuracy for Logistic Regression is :  0.81184
+Accuracy for SVM is :  0.80256
+Accuracy for FF Neural Net is :  0.76968
 
 ## Word2vec
 Accuracy for Naive Bayes is :  0.72696

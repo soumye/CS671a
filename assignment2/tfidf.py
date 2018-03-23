@@ -7,10 +7,29 @@ from classifiers import naive_bayes
 from classifiers import logistic_regression
 from classifiers import svm
 from classifiers import fnn
+import gensim
 
 pkl_file = open('data2.pkl', 'rb')
 [train , test] = pkl.load(pkl_file)
 pkl_file.close()
+
+# def loadGloveVectors():
+#     print ("Loading Glove Model")
+#     #Write the directory for glove vectors here
+#     f = open("/home/soumye/NLP/CS224N/assignment1/utils/datasets/glove.6B.300d.txt",'r')
+#     model = {}
+#     for line in f:
+#         splitLine = line.split()
+#         word = splitLine[0]
+#         embedding = np.array([float(val) for val in splitLine[1:]])
+#         model[word] = embedding
+#     print ("Done.",len(model)," words loaded!")
+#     return model
+
+# vec = loadGloveVectors()
+
+vec = gensim.models.KeyedVectors.load_word2vec_format('~/NLP/GoogleNews-vectors-negative300.bin', binary=True) 
+
 
 vocab = {}
 for key, value in train.items():
@@ -38,10 +57,17 @@ for key, value in vocab.items():
     num +=1
 vocab['</unk>'] = num
 
+glove = np.zeros((len(vocab),300))
+for key, value in vocab.items():
+    try:
+        glove[value] = vec[key]
+    except:
+        pass
+
 ## Calculating the idfs for train and test document set
 
-idf_train = np.zeros(len(vocab))
-idf_test = np.zeros(len(vocab))
+idf_train = np.ones(len(vocab))
+idf_test = np.ones(len(vocab))
 
 for key, value in train.items():
     for file_id, words in value.items():
@@ -79,7 +105,11 @@ for key, value in train.items():
                 bow[vocab['</unk>']] += 1
         tf = bow/len(words)
         tfidf = tf*idf_train
-        train_set.append([key, tfidf ])
+        tfidf = tfidf/np.sum(tfidf)
+        avg_glove = np.zeros(300)
+        for i in range(len(vocab)):
+            avg_glove += tfidf[i]*glove[i]
+        train_set.append([key, avg_glove ])
 
 print('shuffling train')
 random.shuffle(train_set)
@@ -97,7 +127,10 @@ for key, value in test.items():
                 bow[vocab['</unk>']] += 1
         tf = bow/len(words)
         tfidf = tf*idf_test
-        test_set.append([key, tfidf])
+        avg_glove = np.zeros(300)
+        for i in range(len(vocab)):
+            avg_glove += tfidf[i]*glove[i]
+        test_set.append([key, avg_glove])
 
 print('shuffling test')
 random.shuffle(test_set)
