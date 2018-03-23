@@ -1,17 +1,33 @@
-##Binary BOW for vocab = 5001
+## Binary BOW for vocab = 5001
 Accuracy for Naive Bayes is :  0.77976
 Accuracy for Logistic Regression is :  0.85984
 Accuracy for SVM is :  0.8324
 Accuracy for FF Neural Net is :  0.85576
 
-#####Glove 300d
+## Normlized Tf- Representation (Vocab = 10001)
+Accuracy for Naive Bayes is :  0.67676
+Accuracy for Logistic Regression is :  0.76704
+Accuracy for SVM is :  0.83408
+Accuracy for FF Neural Net is :  0.83924
+
+## Tf-Idf Representation
+
+## Glove 300d
 Accuracy for Naive Bayes is :  0.693
 Accuracy for Logistic Regression is :  0.83556
 Accuracy for SVM is :  0.83624
 Accuracy for FF Neural Net is :  0.83884
 
-##Word2vec
+## Word2vec
 Accuracy for Naive Bayes is :  0.72696
 Accuracy for Logistic Regression is :  0.8464
 Accuracy for SVM is :  0.85664
 Accuracy for FF Neural Net is :  0.8602
+
+## Using Rnn and self-trained word vectors with dropout
+25000/25000 [==============================] - 218s 9ms/step - loss: 0.4866 - acc: 0.7620
+Epoch 2/3
+25000/25000 [==============================] - 198s 8ms/step - loss: 0.3167 - acc: 0.8733
+Epoch 3/3
+25000/25000 [==============================] - 195s 8ms/step - loss: 0.2806 - acc: 0.8878
+Accuracy: 86.43%

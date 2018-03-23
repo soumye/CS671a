@@ -30,13 +30,43 @@ for key, value in test.items():
                 vocab[word] = 1           
 
 v = collections.Counter(vocab)
-vocab = dict(v.most_common(10000))
+vocab = dict(v.most_common(5000))
 print(len(vocab))
 num = 0
 for key, value in vocab.items():
     vocab[key] = num
     num +=1
 vocab['</unk>'] = num
+
+## Calculating the idfs for train and test document set
+
+idf_train = np.zeros(len(vocab))
+idf_test = np.zeros(len(vocab))
+
+for key, value in train.items():
+    for file_id, words in value.items():
+        idf = np.zeros(len(vocab))
+        for word in words:
+            if word in vocab:
+                idf[vocab[word]] = 1
+            else:
+                idf[vocab['</unk>']] = 1
+        idf_train += idf
+
+idf_train = np.log(25000/idf_train)
+
+for key, value in test.items():
+    for file_id, words in value.items():
+        idf = np.zeros(len(vocab))
+        for word in words:
+            if word in vocab:
+                idf[vocab[word]] = 1
+            else:
+                idf[vocab['</unk>']] = 1
+        idf_test += idf
+
+idf_test = np.log(25000/idf_test)
+#####################################################
 
 train_set = []
 for key, value in train.items():
@@ -47,8 +77,9 @@ for key, value in train.items():
                 bow[vocab[word]] += 1
             else:
                 bow[vocab['</unk>']] += 1
-        bow = bow/len(words)
-        train_set.append([key, bow ])
+        tf = bow/len(words)
+        tfidf = tf*idf_train
+        train_set.append([key, tfidf ])
 
 print('shuffling train')
 random.shuffle(train_set)
@@ -64,8 +95,9 @@ for key, value in test.items():
                 bow[vocab[word]] += 1
             else:
                 bow[vocab['</unk>']] += 1
-        bow = bow/len(words)
-        test_set.append([key, bow ])
+        tf = bow/len(words)
+        tfidf = tf*idf_test
+        test_set.append([key, tfidf])
 
 print('shuffling test')
 random.shuffle(test_set)

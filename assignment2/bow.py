@@ -49,7 +49,7 @@ for key, value in train.items():
                 bow[vocab['</unk>']] = 1
         train_set.append([key, bow ])
 
-print('shuffling test')
+print('shuffling train')
 random.shuffle(train_set)
 Y_train = np.array([row[0] for row in train_set])
 X_train = np.array([row[1] for row in train_set])
