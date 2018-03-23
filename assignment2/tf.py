@@ -36,20 +36,18 @@ num = 0
 for key, value in vocab.items():
     vocab[key] = num
     num +=1
-# vocab['</unk>'] = num
+vocab['</unk>'] = num
 
 train_set = []
 for key, value in train.items():
     for file_id, words in value.items():
         bow = np.zeros(len(vocab))
-        num = 0
         for word in words:
             if word in vocab:
-                num += 1
                 bow[vocab[word]] += 1
-            # else:
-                # bow[vocab['</unk>']] += 1
-            bow = bow/num
+            else:
+                bow[vocab['</unk>']] += 1
+        bow = bow/len(words)
         train_set.append([key, bow ])
 
 print('shuffling test')
@@ -61,14 +59,12 @@ test_set = []
 for key, value in test.items():
     for file_id, words in value.items():
         bow = np.zeros(len(vocab))
-        num = 0
         for word in words:
             if word in vocab:
                 bow[vocab[word]] += 1
-                num += 1
-            # else:
-                # bow[vocab['</unk>']] += 1
-            bow = bow/num
+            else:
+                bow[vocab['</unk>']] += 1
+        bow = bow/len(words)
         test_set.append([key, bow ])
 
 print('shuffling test')
