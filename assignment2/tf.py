@@ -32,10 +32,11 @@ for key, value in train.items():
     for file_id, words in value.items():
         bow = np.zeros(len(vocab))
         for word in words:
-            bow[vocab[word]] = 1
+            bow[vocab[word]] += 1
+        bow = bow/len(words)
         train_set.append([key, bow ])
 
-print('shuffling test')
+print('shuffling train')
 random.shuffle(train_set)
 Y_train = np.array([row[0] for row in train_set])
 X_train = np.array([row[1] for row in train_set])
@@ -45,7 +46,8 @@ for key, value in test.items():
     for file_id, words in value.items():
         bow = np.zeros(len(vocab))
         for word in words:
-            bow[vocab[word]] = 1
+            bow[vocab[word]] += 1
+        bow = bow/len(words)
         test_set.append([key, bow ])
 
 print('shuffling test')
