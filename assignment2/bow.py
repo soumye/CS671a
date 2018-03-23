@@ -16,15 +16,17 @@ num = 0
 for key, value in train.items():
     for file_id, words in value.items():
         for word in words:
-            vocab[word] = num
-            num += 1
-
+            if word not in vocab:
+                vocab[word] = num
+                num += 1
+print("train_dict")
 for key, value in test.items():
     for file_id, words in value.items():
         for word in words:
-            vocab[word] = num
-            num += 1            
-
+            if word not in vocab:
+                vocab[word] = num
+                num += 1            
+print("test_dict")
 train_set = []
 for key, value in train.items():
     for file_id, words in value.items():
