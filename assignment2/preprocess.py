@@ -47,6 +47,6 @@ for file in files:
     test[0][file_num] = parser(f)
 
 data = [test, train]
-output = open('data.pkl', 'wb')
+output = open('data2.pkl', 'wb')
 pkl.dump(data, output)
 output.close()
