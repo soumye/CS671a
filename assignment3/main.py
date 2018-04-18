@@ -24,6 +24,7 @@ def dependency_parser():
 
 	print('Loading {} training, {} validation and {}  test configurations'.format(len(config_train), len(config_val), len(config_test)))
 
+	#Construct the Dataset by converting to features
 	x_train = config_to_feature(config_train,sent_train, parse_train)
 	y_train = transition_to_feature(transit_train)
 	print(x_train.shape, y_train.shape)
@@ -35,6 +36,8 @@ def dependency_parser():
 	x_test = config_to_feature(config_test, sent_test, parse_test)
 	y_test = transition_to_feature(transit_test)
 	print(x_test.shape, y_test.shape)
+	# ***************************************************
+	# Building the model in keras
 
 	model = Sequential()
 	model.add(Dense(400, input_dim=707, activation='relu', use_bias=True))
@@ -44,13 +47,11 @@ def dependency_parser():
 	model.add(Dense(3, activation='sigmoid'))
 	model.compile(loss='categorical_crossentropy', optimizer='adagrad', metrics=['accuracy'])
 
-	print(model.summary())
-
 	model.fit(x_train, y_train, epochs=3, batch_size=32, validation_data=(x_val, y_val), verbose=1)
 
-	score, accuracy = model.evaluate(x_test, y_test, batch_size=32, verbose=1)
+	_ , accuracy = model.evaluate(x_test, y_test, batch_size=32, verbose=1)
 
-	print ("accuracy: %.2f" % (accuracy))
+	print ("Accuracy of the Model: %.2f" % (accuracy))
 
 if __name__ == "__main__":
 	dependency_parser()

@@ -2,8 +2,7 @@ import numpy as np
 from dependecy_parsing import dep_left, dep_right
 
 def feature_vector(configuration, sentence, parse):
-	# print(sentence)
-	# print(parse)
+
 	POS = {'ADJ':1, 'ADP':2, 'ADV':3, 'AUX':4, 'CCONJ':5, 'DET':6, 'INTJ':7,
 	'NOUN':8, 'NUM':9, 'PART':10, 'PRON':11, 'PROPN':12, 'PUNCT':13,
 	'SCONJ':14, 'SYM':15, 'VERB':16, 'X':17}
@@ -11,8 +10,6 @@ def feature_vector(configuration, sentence, parse):
 	buff = configuration[1]
 	stack = configuration[0]
 	edge = configuration[2]
-	# print(stack)
-	# print(buff)
 	vec = np.zeros(0)
 
 	#extracting features for top of stack
@@ -22,13 +19,13 @@ def feature_vector(configuration, sentence, parse):
 			try:
 				vec = np.concatenate((vec,model[w.lower()]), axis=0)
 			except:
-				vec = np.concatenate((vec,np.zeros(100)), axis=0)	#out of vocab word
+				vec = np.concatenate((vec,np.zeros(100)), axis=0)
 			pos = POS[parse[stack[-1]-1][3]]
-			# print(vec)
+			
 			vec = np.concatenate((vec, [pos]), axis=0)
-			# print(w, pos)
-			# print(vec)
-		else:	#top of stack is ROOT
+			
+		else:	
+			#top of stack is ROOT
 			vec = np.concatenate((vec, np.ones(100)),axis=0)	#vector of 1's
 			vec = np.concatenate((vec,[0]), axis=0)	#vector of 0's
 	else:
@@ -41,7 +38,7 @@ def feature_vector(configuration, sentence, parse):
 			try:
 				vec = np.concatenate((vec,model[w.lower()]), axis=0)
 			except:
-				vec = np.concatenate((vec,np.zeros(100)), axis=0)	#out of vocab word
+				vec = np.concatenate((vec,np.zeros(100)), axis=0)
 			pos = POS[parse[buff[0]-1][3]]
 			# print(vec)
 			vec = np.concatenate((vec, [pos]), axis=0)
@@ -60,10 +57,7 @@ def feature_vector(configuration, sentence, parse):
 			except:
 				vec = np.concatenate((vec,np.zeros(100)), axis=0)	#out of vocab word
 			pos = POS[parse[buff[1]-1][3]]
-			# print(vec)
 			vec = np.concatenate((vec, [pos]), axis=0)
-			# print(w, pos)
-			# print(vec)
 		else:
 			vec = np.concatenate((vec,np.ones(100)),axis=0)
 			vec = np.concatenate((vec,[0]),axis=0)
